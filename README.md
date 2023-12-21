@@ -10,14 +10,14 @@ RSERVERS (sid, bid, date)<br >
 Queries, View and Trigger<br >
 
 <ol>
-<li>Find the colours of boats reserved by Albert</li><br >
-<li>Find all sailor id’s of sailors who have a rating of at least 8 or reserved boat 103</li><br >
-<li>Find the names of sailors who have not reserved a boat whose name contains the string “storm”. Order the names in ascending order.</li><br >
-<li>Find the names of sailors who have reserved all boats.</li><br >
-<li>Find the name and age of the oldest sailor.</li><br >
-<li>For each boat which was reserved by at least 5 sailors with age >= 40, find the boat id and the average age of such sailors.</li><br >
-<li>Create a view that shows the names and colours of all the boats that have been reserved by a sailor with a specific rating.</li><br >
-<li>A trigger that prevents boats from being deleted If they have active reservations.</li><br >
+<li>Find the colours of boats reserved by Albert</li>
+<li>Find all sailor id’s of sailors who have a rating of at least 8 or reserved boat 103</li>
+<li>Find the names of sailors who have not reserved a boat whose name contains the string “storm”. Order the names in ascending order.</li>
+<li>Find the names of sailors who have reserved all boats.</li>
+<li>Find the name and age of the oldest sailor.</li>
+<li>For each boat which was reserved by at least 5 sailors with age >= 40, find the boat id and the average age of such sailors.</li>
+<li>Create a view that shows the names and colours of all the boats that have been reserved by a sailor with a specific rating.</li>
+<li>A trigger that prevents boats from being deleted If they have active reservations.</li>
 </ol>
 
 <h1>INSURANCE DATABASE</h1><br >
