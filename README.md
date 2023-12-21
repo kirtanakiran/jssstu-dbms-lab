@@ -20,7 +20,7 @@ Queries, View and Trigger<br >
 <li>A trigger that prevents boats from being deleted If they have active reservations.</li>
 </ol>
 
-<h1>INSURANCE DATABASE</h1><br >
+<h1>INSURANCE DATABASE</h1>
 <hr/>
 
 Consider the database schemas given below. Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified. Create tables for the following schema listed below by properly specifying the primary keys and foreign keys. Enter at least five tuples for each relation.<br >
