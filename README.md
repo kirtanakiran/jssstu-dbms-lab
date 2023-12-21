@@ -41,3 +41,28 @@ Queries, View and Trigger<br >
 <li>A view that shows models and year of cars that are involved in accident.</li>
 <li>A trigger that prevents a driver from participating in more than 3 accidents in a given year.</li>
 </ol>
+
+## Order Processing Database 
+3.Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified.
+Create tables for the following schema listed below by properly specifying the primary keys and foreign keys.
+Enter at least five tuples for each relation.
+Order processing database
+
+1. Customer (Cust#:int, cname: string, city: string)
+2. Order (order#:int, odate: date, cust#: int, order-amt: int)
+3. Order-item (order#:int, Item#: int, qty: int)
+4. Item (item#:int, unitprice: int)
+5. Shipment (order#:int, warehouse#: int, ship-date: date)
+6. Warehouse (warehouse#:int, city: string)
+
+Queries, View and Trigger
+
+1. List the Order# and Ship\_date for all orders shipped from Warehouse# "W2". 
+2. List the Warehouse information from which the Customer named "Kumar" was supplied his orders. Produce a listing of Order#, Warehouse#. 
+3. Produce a listing: Cname, #ofOrders, Avg\_Order\_Amt, where the middle column is the total number of orders by the customer and the last column is the average order amount for that customer. (Use aggregate functions) 
+4. Delete all orders for customer named "Kumar". 
+5. Find the item with the maximum unit price. 
+6. A trigger that prevents warehouse details from being deleted if any item has to be shipped from that warehouse. 
+7. Create a view to display orderID and shipment date of all orders shipped from a warehouse 2. 
+8. A view that shows the warehouse name from where the kumar’s order is been shipped.
+9. A tigger that updates order\_amount based on quantity and unit price of order\_item .
