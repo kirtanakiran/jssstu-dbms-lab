@@ -19,4 +19,21 @@ CREATE TABLE ACCIDENT(
    location VARCHAR(30)
 );
 
+CREATE TABLE OWNS(
+    reg_no VARCHAR(15),
+    driver_id VARCHAR(10),
+    foreign key(reg_no)references CAR(reg_no)on delete cascade,
+    foreign key(driver_id)references PERSON(driver_id)on delete cascade
+);
+
+CREATE TABLE PARTICIPATED(
+    driver_id VARCHAR(10),
+    reg_no VARCHAR(15),
+    report_no int,
+    damage_amt float(8),
+    foreign key(driver_id)references PERSON(driver_id)on delete cascade,
+    foreign key(reg_no)references CAR(reg_no)on delete cascade,
+    foreign key(report_no)references ACCIDENT(report_no)on delete cascade
+);
+
 
