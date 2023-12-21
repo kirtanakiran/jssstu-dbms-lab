@@ -9,7 +9,8 @@ BOAT(bid, bname, color)<br >
 RSERVERS (sid, bid, date)<br >
 Queries, View and Trigger<br >
 
-Find the colours of boats reserved by Albert<br >
+<ul>
+<li>Find the colours of boats reserved by Albert</li><br >
 Find all sailor id’s of sailors who have a rating of at least 8 or reserved boat 103<br >
 Find the names of sailors who have not reserved a boat whose name contains the string “storm”. Order the names in ascending order.<br >
 Find the names of sailors who have reserved all boats.<br >
@@ -21,6 +22,7 @@ Create a view that shows the names and colours of all the boats that have been r
 A trigger that prevents boats from being deleted If they have active reservations.<br >
 A trigger that prevents sailors with rating less than 3 from reserving a boat.<br >
 A trigger that deletes all expired reservations.<br >
+</ul>
 
 INSURANCE DATABASE
 
