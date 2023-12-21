@@ -1,7 +1,7 @@
 <h1>SAILORS DATABASE</h1>
 <hr/>
 
-Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified. Create tables for the following schema listed below by properly specifying the primary keys and foreign keys. Enter at least five tuples for each relation.<br >
+1.Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified. Create tables for the following schema listed below by properly specifying the primary keys and foreign keys. Enter at least five tuples for each relation.<br >
 
 Sailors database<br >
 SAILORS (sid, sname, rating, age)<br >
@@ -23,7 +23,7 @@ Queries, View and Trigger<br >
 <h1>INSURANCE DATABASE</h1>
 <hr/>
 
-Consider the database schemas given below. Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified. Create tables for the following schema listed below by properly specifying the primary keys and foreign keys. Enter at least five tuples for each relation.<br >
+2.Consider the database schemas given below. Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified. Create tables for the following schema listed below by properly specifying the primary keys and foreign keys. Enter at least five tuples for each relation.<br >
 Insurance database<br >
 
 PERSON (driver id#: string, name: string, address: string)<br >
@@ -42,7 +42,8 @@ Queries, View and Trigger<br >
 <li>A trigger that prevents a driver from participating in more than 3 accidents in a given year.</li>
 </ol>
 
-## Order Processing Database 
+<h1>Order Processing Database</h1>
+<hr />
 3.Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified.
 Create tables for the following schema listed below by properly specifying the primary keys and foreign keys.
 Enter at least five tuples for each relation.
