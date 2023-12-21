@@ -1,6 +1,6 @@
 SAILORS DATABASE
 
-Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified. Create tables for the following schema listed below by properly specifying the primary keys and foreign keys. Enter at least five tuples for each relation.
+Write ER diagram and schema diagram. The primary keys are underlined and the data types are specified. Create tables for the following schema listed below by properly specifying the primary keys and foreign keys. Enter at least five tuples for each relation.<br >
 
 Sailors database
 SAILORS (sid, sname, rating, age)
