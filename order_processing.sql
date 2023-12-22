@@ -90,6 +90,18 @@ SELECT * FROM Items;
 SELECT * FROM Shipments;
 SELECT * FROM Warehouses;
 
+select order_id,ship_date from Shipments where warehouse_id=0001;
+
+select order_id,warehouse_id from Warehouses natural join Shipments where order_id in (select order_id from Orders where cust_id in (Select cust_id from Customers where cname like "%Kumar%"));
+
+select cname, COUNT(*) as no_of_orders, AVG(order_amt) as avg_order_amt
+from Customers c, Orders o
+where c.cust_id=o.cust_id 
+group by cname;
+
+select max(unitprice) from Items;
+
+
 CREATE VIEW ShipmentDatesFromWarehouse2 AS
 SELECT order_id, ship_date
 FROM Shipments
