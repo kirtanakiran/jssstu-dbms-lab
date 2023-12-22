@@ -1,100 +1,144 @@
-CREATE DATABASE Order_processings;
-USE Order_processings:
+CREATE DATABASE order_processing;
+USE order_processing;
 
-CREATE TABLE CUSTOMER(
-cust_id int primary key,
-ename VARCHAR(35),
-city VARCHAR(40)
+CREATE TABLE Customers (
+    cust_id INT PRIMARY KEY,
+    cname VARCHAR(35) NOT NULL,
+    city VARCHAR(35) NOT NULL
 );
 
-CREATE TABLE ORDERS (
-order_id INT PRIMARY KEY,
-odate DATE NOT NULL,
-cust_id INT,
-order_amt INT NOT NULL,
-FOREIGN KEY (cust_id) REFERENCES CUSTOMER(cust_id) ON DELETE CASCADE
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    odate DATE NOT NULL,
+    cust_id INT,
+    order_amt INT NOT NULL,
+    FOREIGN KEY (cust_id) REFERENCES Customers(cust_id) ON DELETE CASCADE
 );
 
-CREATE TABLE ITEMS ( 
-item_id INT PRIMARY KEY, 
-unitprice INT NOT NULL 
+CREATE TABLE Items (
+    item_id INT PRIMARY KEY,
+    unitprice INT NOT NULL
 );
 
-CREATE TABLE ORDERITEMS (
-order_id INT NOT NULL,
-item_id INT NOT NULL,
-qty INT NOT NULL,
-FOREIGN KEY (order_id) REFERENCES ORDERS(order_id) ON DELETE CASCADE,
-FOREIGN KEY (item_id) REFERENCES ITEMS(item_id) ON DELETE CASCADE
+CREATE TABLE OrderItems (
+    order_id INT NOT NULL,
+    item_id INT NOT NULL,
+    qty INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (item_id) REFERENCES Items(item_id) ON DELETE CASCADE
 );
 
-CREATE TABLE WAREHOUSES (
-warehouse_id INT PRIMARY KEY,
-city VARCHAR(30) NOT NULL
+CREATE TABLE Warehouses (
+    warehouse_id INT PRIMARY KEY,
+    city VARCHAR(35) NOT NULL
 );
 
-CREATE TABLE SHIPMENTS (
-order_id INT NOT NULL,
-warehouse_id INT NOT NULL,
-ship_date DATE NOT NULL,
-FOREIGN KEY (order_id) REFERENCES ORDERS(order_id) ON DELETE CASCADE,
-FOREIGN KEY (warehouse_id) REFERENCES WAREHOUSES(warehouse_id) ON DELETE CASCADE
+CREATE TABLE Shipments (
+    order_id INT NOT NULL,
+    warehouse_id INT NOT NULL,
+    ship_date DATE NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (warehouse_id) REFERENCES Warehouses(warehouse_id) ON DELETE CASCADE
 );
 
-INSERT INTO CUSTOMER VALUES
-(001,"Aditya","Mysuru"), 
-(002,"Kumar","Bengaluru"), 
-(003,"Rashmi","Mumbai"), 
-(004,"Nitya","Hyderabad"), 
-(005,"Naveen","Delhi");
+INSERT INTO Customers VALUES
+(0001, "Customer_1", "Mysuru"),
+(0002, "Customer_2", "Bengaluru"),
+(0003, "Kumar", "Mumbai"),
+(0004, "Customer_4", "Dehli"),
+(0005, "Customer_5", "Bengaluru");
 
-INSERT INTO ORDERS VALUES 
-(1001,"2023-08-10",001,20000), 
-(1002,"2022-03-01",002,2500), 
-(1003,"2020-05-10",003,34000), 
-(1004,"2019-10-22",004,45800), 
-(1005,"2018-12-31",005,8000);
+INSERT INTO Orders VALUES
+(001, "2020-01-14", 0001, 2000),
+(002, "2021-04-13", 0002, 500),
+(003, "2019-10-02", 0003, 2500),
+(004, "2019-05-12", 0005, 1000),
+(005, "2020-12-23", 0004, 1200);
 
-INSERT INTO ITEMS VALUES
-(001,400),
-(002,85),
-(003,520),
-(004,40),
-(005,23);
+INSERT INTO Items VALUES
+(0001, 400),
+(0002, 200),
+(0003, 1000),
+(0004, 100),
+(0005, 500);
 
-INSERT INTO WAREHOUSES VALUES
-(001,"Mysuru"),
-(002,"Bengaluru"),
-(003,"Mumbai"),
-(004,"Hyderabad"),
-(005,"Delhi");
+INSERT INTO Warehouses VALUES
+(0001, "Mysuru"),
+(0002, "Bengaluru"),
+(0003, "Mumbai"),
+(0004, "Dehli"),
+(0005, "Chennai");
 
-INSERT INTO ORDERITEMS VALUES
-(1001,001,5),
-(1002,002,6),
-(1003,003,10),
-(1004,004,1),
-(1005,005,2);
+INSERT INTO OrderItems VALUES 
+(001, 0001, 5),
+(002, 0005, 1),
+(003, 0005, 5),
+(004, 0003, 1),
+(005, 0004, 12);
 
-INSERT INTO SHIPMENTS VALUES
-(1001,001,"2023-08-14"),
-(1002,002,"2022-03-05"),
-(1003,003,"2020-05-12"),
-(1004,004,"2019-10-24"),
-(1005,005,"2019-01-03");
+INSERT INTO Shipments VALUES
+(001, 0002, "2020-01-16"),
+(002, 0001, "2021-04-14"),
+(003, 0004, "2019-10-07"),
+(004, 0003, "2019-05-16"),
+(005, 0005, "2020-12-23");
 
-SELECT *FROM CUSTOMER;
-SELECT *FROM ORDERS;
-SELECT *FROM ITEMS;
-SELECT *FROM ORDERITEMS;
-SELECT *FROM WAREHOUSES;
-SELECT *FROM SHIPMENTS;
+SELECT * FROM Customers;
+SELECT * FROM Orders;
+SELECT * FROM OrderItems;
+SELECT * FROM Items;
+SELECT * FROM Shipments;
+SELECT * FROM Warehouses;
 
+CREATE VIEW ShipmentDatesFromWarehouse2 AS
+SELECT order_id, ship_date
+FROM Shipments
+WHERE warehouse_id = 2;
 
+SELECT * FROM ShipmentDatesFromWarehouse2;
 
+CREATE VIEW WharehouseWithKumarOrders AS
+SELECT s.warehouse_id
+FROM Warehouses w, Customers c, Orders o, Shipments s
+WHERE w.warehouse_id = s.warehouse_id AND s.order_id = o.order_id AND o.cust_id = c.cust_id AND c.cname = "Kumar";
 
+SELECT * FROM WharehouseWithKumarOrders;
 
+DELETE FROM Orders WHERE cust_id = (SELECT cust_id FROM Customers WHERE cname LIKE "%Kumar%");
 
+DELIMITER $$
 
+CREATE TRIGGER PreventWarehouseDelete
+    BEFORE DELETE ON Warehouses
+    FOR EACH ROW
+BEGIN 
+    IF OLD.warehouse_id IN (SELECT warehouse_id FROM Shipments NATURAL JOIN Warehouses) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'An item has to be shipped from this warehouse!';
+    END IF;
+END;
+$$
 
+DELIMITER ;
 
+DELETE FROM Warehouses WHERE warehouse_id = 2;
+
+DELIMITER $$
+
+CREATE TRIGGER UpdateOrderAmt
+    AFTER INSERT ON OrderItems
+    FOR EACH ROW
+BEGIN
+    UPDATE Orders SET order_amt = (new.qty * (SELECT DISTINCT unitprice FROM Items NATURAL JOIN OrderItems WHERE item_id = new.item_id)) WHERE Orders.order_id = new.order_id;
+END;
+
+$$
+
+DELIMITER ;
+
+INSERT INTO Orders VALUES
+(006, "2020-12-23", 0004, 1200);
+
+INSERT INTO OrderItems VALUES 
+(006, 0001, 5);
+
+SELECT * FROM Orders;
