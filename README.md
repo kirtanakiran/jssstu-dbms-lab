@@ -67,3 +67,58 @@ Queries, View and Trigger
 7. Create a view to display orderID and shipment date of all orders shipped from a warehouse 2. 
 8. A view that shows the warehouse name from where the kumar’s order is been shipped.
 9. A tigger that updates order\_amount based on quantity and unit price of order\_item .
+
+<h1>STUDENTS ENROLLMENT</h1>
+<hr />
+4. Consider the database schemas given below.<br >
+Write ER diagram and schema diagram. The primary keys are underlined and the data types are 
+specified.
+Create tables for the following schema listed below by properly specifying the primary keys and 
+foreign keys.
+Enter at least five tuples for each relation.
+Student enrollment in courses and books adopted for each course<br >
+
+STUDENT (regno: string, name: string, major: string, bdate: date)<br >
+COURSE (course#:int, cname: string, dept: string)<br >
+ENROLL(regno:string, course#: int,sem: int,marks: int)<br >
+BOOK-ADOPTION (course#:int, sem: int, book-ISBN: int)<br >
+TEXT (book-ISBN: int, book-title: string, publisher: string,author: string)<br >
+
+1. Demonstrate how you add a new text book to the database and make this book be 
+adopted by some department. <br >
+2. Produce a list of text books (include Course #, Book-ISBN, Book-title) in the alphabetical 
+order for courses offered by the ‘CS’ department that use more than two books. <br >
+3. List any department that has all its adopted books published by a specific publisher.<br > 
+4. List the students who have scored maximum marks in ‘DBMS’ course. <br >
+5. Create a view to display all the courses opted by a student along with marks obtained.<br >
+6. Create a trigger that prevents a student from enrolling in a course if the marks 
+prerequisite is less than 40.<br >
+
+<h1>COMPANY DATABASE</h1>
+<hr />
+5. Consider the database schemas given below.
+Write ER diagram and schema diagram. The primary keys are underlined and the data types are 
+specified.
+Create tables for the following schema listed below by properly specifying the primary keys and 
+foreign keys.
+Enter at least five tuples for each relation.<br >
+
+Compnay Databse<br >
+EMPLOYEE (SSN, Name, Address, Sex, Salary, SuperSSN, DNo)<br >
+DEPARTMENT (DNo, DName, MgrSSN, MgrStartDate)<br >
+DLOCATION (DNo,DLoc)<br >
+PROJECT (PNo, PName, PLocation, DNo)<br >
+WORKS_ON (SSN, PNo, Hours)<br >
+
+1. Make a list of all project numbers for projects that involve an employee whose last name 
+is ‘Scott’, either as a worker or as a manager of the department that controls the project. <br >
+2. Show the resulting salaries if every employee working on the ‘IoT’ project is given a 10 
+percent raise.<br > 
+3. Find the sum of the salaries of all employees of the ‘Accounts’ department, as well as the 
+maximum salary, the minimum salary, and the average salary in this department <br >
+4. Retrieve the name of each employee who works on all the projects controlled by 
+department number 5 (use NOT EXISTS operator). <br >
+5. For each department that has more than five employees, retrieve the department 
+number and the number of its employees who are making more than Rs. 6,00,000. <br >
+6. Create a view that shows name, dept name and location of all employees. <br >
+7. Create a trigger that prevents a project from being deleted if it is currently being worked by an employee <br >
