@@ -44,7 +44,7 @@ CREATE TABLE WorksOn(
 );
 
 INSERT INTO Employee VALUES
-("01NB235", "Chandan_Krishna","Siddartha Nagar, Mysuru", "Male", 1500000, "01NB235", 5),
+("01NB235", "Chandan_Scott","Siddartha Nagar, Mysuru", "Male", 1500000, "01NB235", 5),
 ("01NB354", "Employee_2", "Lakshmipuram, Mysuru", "Female", 1200000,"01NB235", 2),
 ("02NB254", "Employee_3", "Pune, Maharashtra", "Male", 1000000,"01NB235", 4),
 ("03NB653", "Employee_4", "Hyderabad, Telangana", "Male", 2500000, "01NB354", 5),
@@ -88,7 +88,7 @@ SELECT * FROM WorksOn;
 
 SELECT p_no, p_name, name
 FROM Project p, Employee e
-WHERE p.d_no = e.d_no AND e.name LIKE "%Krishna";
+WHERE p.d_no = e.d_no AND e.name LIKE "%Scott";
 
 SELECT w.ssn, name, salary AS old_salary, salary * 1.1 AS new_salary
 FROM WorksOn w
