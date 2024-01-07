@@ -106,18 +106,21 @@ select max(unitprice) from Items;
 CREATE VIEW ShipmentDatesFromWarehouse2 AS
 SELECT order_id, ship_date
 FROM Shipments
-WHERE warehouse_id = 2;
+WHERE warehouse_id = 5;
 
 SELECT * FROM ShipmentDatesFromWarehouse2;
 
+/*
 CREATE VIEW WharehouseWithKumarOrders AS
 SELECT s.warehouse_id
 FROM Warehouses w, Customers c, Orders o, Shipments s
 WHERE w.warehouse_id = s.warehouse_id AND s.order_id = o.order_id AND o.cust_id = c.cust_id AND c.cname = "Kumar";
 
 SELECT * FROM WharehouseWithKumarOrders;
+*/
 
 DELETE FROM Orders WHERE cust_id = (SELECT cust_id FROM Customers WHERE cname LIKE "%Kumar%");
+
 /*
 DELIMITER $$
 CREATE TRIGGER PreventWarehouseDelete
