@@ -1,9 +1,6 @@
--- Drop and create the 'insurance' database
-DROP DATABASE IF EXISTS insurance;
 CREATE DATABASE insurance;
 USE insurance;
 
--- Create the 'person' table to store information about individuals
 CREATE TABLE person (
     driver_id VARCHAR(255) NOT NULL,
     driver_name TEXT NOT NULL,
@@ -11,7 +8,6 @@ CREATE TABLE person (
     PRIMARY KEY (driver_id)
 );
 
--- Create the 'car' table to store information about vehicles
 CREATE TABLE car (
     reg_no VARCHAR(255) NOT NULL,
     model TEXT NOT NULL,
@@ -19,7 +15,6 @@ CREATE TABLE car (
     PRIMARY KEY (reg_no)
 );
 
--- Create the 'accident' table to store information about accidents
 CREATE TABLE accident (
     report_no INTEGER NOT NULL,
     accident_date DATE,
@@ -27,7 +22,6 @@ CREATE TABLE accident (
     PRIMARY KEY (report_no)
 );
 
--- Create the 'owns' table to represent the ownership relationship between persons and cars
 CREATE TABLE owns (
     driver_id VARCHAR(255) NOT NULL,
     reg_no VARCHAR(255) NOT NULL,
@@ -35,7 +29,6 @@ CREATE TABLE owns (
     FOREIGN KEY (reg_no) REFERENCES car(reg_no) ON DELETE CASCADE
 );
 
--- Create the 'participated' table to represent the participation of drivers and cars in accidents
 CREATE TABLE participated (
     driver_id VARCHAR(255) NOT NULL,
     reg_no VARCHAR(255) NOT NULL,
@@ -46,7 +39,6 @@ CREATE TABLE participated (
     FOREIGN KEY (report_no) REFERENCES accident(report_no)
 );
 
--- Insert sample data into the 'person' table
 INSERT INTO person VALUES
 ("D111", "Driver_1", "Kuvempunagar, Mysuru"),
 ("D222", "Smith", "JP Nagar, Mysuru"),
@@ -54,7 +46,6 @@ INSERT INTO person VALUES
 ("D444", "Driver_4", "Rajivnagar, Mysuru"),
 ("D555", "Driver_5", "Vijayanagar, Mysore");
 
--- Insert sample data into the 'car' table
 INSERT INTO car VALUES
 ("KA-20-AB-4223", "Swift", 2020),
 ("KA-20-BC-5674", "Mazda", 2017),
@@ -62,7 +53,6 @@ INSERT INTO car VALUES
 ("KA-21-BD-4728", "Triber", 2019),
 ("KA-09-MA-1234", "Tiago", 2018);
 
--- Insert sample data into the 'accident' table
 INSERT INTO accident VALUES
 (43627, "2020-04-05", "Nazarbad, Mysuru"),
 (56345, "2019-12-16", "Gokulam, Mysuru"),
@@ -71,7 +61,6 @@ INSERT INTO accident VALUES
 (65738, "2021-01-21", "JSS Layout, Mysuru"),
 (66666, "2021-01-21", "JSS Layout, Mysuru");
 
--- Insert sample data into the 'owns' table
 INSERT INTO owns VALUES
 ("D111", "KA-20-AB-4223"),
 ("D222", "KA-20-BC-5674"),
@@ -79,7 +68,6 @@ INSERT INTO owns VALUES
 ("D444", "KA-21-BD-4728"),
 ("D222", "KA-09-MA-1234");
 
--- Insert sample data into the 'participated' table
 INSERT INTO participated VALUES
 ("D111", "KA-20-AB-4223", 43627, 20000),
 ("D222", "KA-20-BC-5674", 56345, 49500),
@@ -112,7 +100,6 @@ INSERT INTO participated VALUES
 ("D222", "KA-21-BD-4728", 45562, 50000);
 
 -- Attempt to delete a car with the model "Mazda" owned by the driver "Smith"
--- Note: The error in the original script has been corrected here.
 DELETE FROM car
 WHERE model = "Mazda" AND reg_no IN
     (SELECT car.reg_no
