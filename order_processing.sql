@@ -92,7 +92,8 @@ SELECT * FROM Warehouses;
 
 select order_id,ship_date from Shipments where warehouse_id=0002;
 
-select order_id,warehouse_id from Warehouses natural join Shipments where order_id in (select order_id from Orders where cust_id in (Select cust_id from Customers where cname like "%Kumar%"));
+select order_id,warehouse_id from Warehouses natural join Shipments
+where order_id in (select order_id from Orders where cust_id in (Select cust_id from Customers where cname like "%Kumar%"));
 
 select cname, COUNT(*) as no_of_orders, AVG(order_amt) as avg_order_amt
 from Customers c, Orders o
@@ -117,9 +118,8 @@ WHERE w.warehouse_id = s.warehouse_id AND s.order_id = o.order_id AND o.cust_id 
 SELECT * FROM WharehouseWithKumarOrders;
 
 DELETE FROM Orders WHERE cust_id = (SELECT cust_id FROM Customers WHERE cname LIKE "%Kumar%");
-
+/*
 DELIMITER $$
-
 CREATE TRIGGER PreventWarehouseDelete
     BEFORE DELETE ON Warehouses
     FOR EACH ROW
@@ -129,22 +129,20 @@ BEGIN
     END IF;
 END;
 $$
-
 DELIMITER ;
 
 DELETE FROM Warehouses WHERE warehouse_id = 2;
-
+*/
 DELIMITER $$
-
 CREATE TRIGGER UpdateOrderAmt
-    AFTER INSERT ON OrderItems
-    FOR EACH ROW
+AFTER INSERT ON OrderItems
+FOR EACH ROW
 BEGIN
-    UPDATE Orders SET order_amt = (new.qty * (SELECT DISTINCT unitprice FROM Items NATURAL JOIN OrderItems WHERE item_id = new.item_id)) WHERE Orders.order_id = new.order_id;
+    UPDATE Orders SET order_amt = (new.qty * (SELECT DISTINCT unitprice 
+                                              FROM Items NATURAL JOIN OrderItems WHERE item_id = new.item_id)) 
+    WHERE Orders.order_id = new.order_id;
 END;
-
 $$
-
 DELIMITER ;
 
 INSERT INTO Orders VALUES
