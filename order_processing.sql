@@ -90,7 +90,7 @@ SELECT * FROM Items;
 SELECT * FROM Shipments;
 SELECT * FROM Warehouses;
 
-select order_id,ship_date from Shipments where warehouse_id=0001;
+select order_id,ship_date from Shipments where warehouse_id=0002;
 
 select order_id,warehouse_id from Warehouses natural join Shipments where order_id in (select order_id from Orders where cust_id in (Select cust_id from Customers where cname like "%Kumar%"));
 
