@@ -84,6 +84,7 @@ WHERE r.sid = s.sid AND r.bid = b.bid AND s.age >= 40
 GROUP BY bid
 HAVING 2 <= COUNT(DISTINCT r.sid);
 
+/*
 CREATE VIEW NamesAndRating AS
 SELECT sname, rating
 FROM Sailors
@@ -98,12 +99,15 @@ WHERE r.sid = s.sid AND r.sdate = "2023-03-06";
 
 SELECT * FROM SailorsWithReservation;
 
+*/
+
 CREATE VIEW ReservedBoatsWithRatedSailor AS
 SELECT DISTINCT bname, color
 FROM Sailors s, Boat b, reserves r
 WHERE s.sid = r.sid AND b.bid = r.bid AND s.rating = 5;
 
 SELECT * FROM ReservedBoatsWithRatedSailor;
+
 
 DELIMITER //
 CREATE OR REPLACE TRIGGER CheckAndDelete
@@ -118,6 +122,7 @@ DELIMITER ;
 
 DELETE FROM Boat WHERE bid = 103;
 
+/*
 DELIMITER //
 CREATE TRIGGER BlockReservation
 BEFORE INSERT ON reserves
@@ -151,3 +156,4 @@ INSERT INTO TempTable VALUES
 (CURDATE());
 
 SELECT * FROM reserves;
+*/
