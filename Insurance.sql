@@ -76,12 +76,9 @@ INSERT INTO participated VALUES
 ("D222", "KA-09-MA-1234", 65738, 25000);
 
 -- Query to calculate the total number of distinct owners involved in accidents in the year 2021
-SELECT COUNT(DISTINCT P.driver_id) AS total_owners
-FROM PERSON P
-JOIN OWNS O ON P.driver_id = O.driver_id
-JOIN PARTICIPATED PA ON O.driver_id = PA.driver_id AND O.reg_no = PA.reg_no
-JOIN ACCIDENT A ON PA.report_no = A.report_no
-WHERE YEAR(A.accident_date) = 2021;
+SELECT COUNT(driver_id)
+FROM participated p, accident a
+WHERE p.report_no=a.report_no and a.accident_date like "2021%";
 
 -- Query to count the number of distinct accidents involving a driver named "Smith"
 SELECT COUNT(DISTINCT a.report_no)
