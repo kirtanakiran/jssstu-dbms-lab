@@ -151,14 +151,14 @@ DELIMITER ;
 INSERT INTO owns VALUES
 ("D222", "KA-21-AC-5473");
 */
--- Trigger that prevents a driver from participating in more than 2 accidents in a given year
+-- Trigger that prevents a driver from participating in more than 3 accidents in a given year
 DELIMITER //
 CREATE TRIGGER PreventParticipation
 BEFORE INSERT ON participated
 FOR EACH ROW
 BEGIN
-    IF 2 <= (SELECT COUNT(*) FROM participated WHERE driver_id = NEW.driver_id) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Driver has already participated in 2 accidents';
+    IF 3 <= (SELECT COUNT(*) FROM participated WHERE driver_id = NEW.driver_id) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Driver has already participated in 3 accidents';
     END IF;
 END;
 //
