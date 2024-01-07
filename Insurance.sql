@@ -115,7 +115,7 @@ WHERE c.reg_no = p.reg_no;
 -- Select data from the 'CarsInAccident' view
 SELECT * FROM CarsInAccident;
 
--- Create the 'DriversWithCar' view to list driver names and addresses for those who own a car
+/*-- Create the 'DriversWithCar' view to list driver names and addresses for those who own a car
 CREATE VIEW DriversWithCar AS
 SELECT driver_name, address
 FROM person p, owns o
@@ -150,7 +150,7 @@ DELIMITER ;
 -- Note: This should result in an error due to the trigger.
 INSERT INTO owns VALUES
 ("D222", "KA-21-AC-5473");
-
+*/
 -- Trigger that prevents a driver from participating in more than 2 accidents in a given year
 DELIMITER //
 CREATE TRIGGER PreventParticipation
